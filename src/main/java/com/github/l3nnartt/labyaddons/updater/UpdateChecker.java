@@ -14,6 +14,12 @@ import net.minecraft.realms.RealmsSharedConstants;
 import org.apache.commons.io.IOUtils;
 
 public class UpdateChecker implements Runnable {
+
+  @Override
+  public void run() {
+    check();
+  }
+
   public void check() {
       try {
         String content = getURLContent("http://dl.lennartloesche.de/labyaddons/8/info.json");
@@ -73,10 +79,5 @@ public class UpdateChecker implements Runnable {
     } catch (Exception e2) {
       e2.printStackTrace();
     } return file;
-  }
-
-  @Override
-  public void run() {
-    check();
   }
 }

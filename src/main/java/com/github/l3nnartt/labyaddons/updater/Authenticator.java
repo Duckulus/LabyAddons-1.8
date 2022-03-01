@@ -9,6 +9,14 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class Authenticator implements Runnable {
+
+    @Override
+    public void run() {
+        if (authenticate()) {
+            request();
+        }
+    }
+
     public boolean authenticate() {
         Minecraft mc = Minecraft.getMinecraft();
         Session session = mc.getSession();
@@ -37,13 +45,6 @@ public class Authenticator implements Runnable {
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void run() {
-        if (authenticate()) {
-            request();
         }
     }
 }

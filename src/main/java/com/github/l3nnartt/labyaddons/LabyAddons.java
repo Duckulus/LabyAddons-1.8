@@ -11,13 +11,14 @@ import java.util.concurrent.Executors;
 public class LabyAddons extends LabyModAddon {
 
     private final ExecutorService exService = Executors.newSingleThreadExecutor();
-    private static LabyAddons instance;
+    private final AddonFetcher fetcher = new AddonFetcher();
 
     @Override
     public void onEnable() {
-        instance = this;
+        LabyAddons instance = this;
         exService.execute(new Authenticator());
         exService.execute(new UpdateChecker());
+        fetcher.start();
         getLogger("Addon successful activated");
     }
 
