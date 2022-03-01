@@ -22,7 +22,7 @@ public class AddonFetcher extends Thread {
     private void fetchAddons() {
         String content;
         try {
-            content = IOUtils.toString(new URL("http://dl.lennartloesche.de/labyaddons/addons.json"));
+            content = IOUtils.toString(new URL("http://dl.lennartloesche.de/labyaddons/8/addons.json"));
         } catch (IOException e) {
             e.printStackTrace();
             return;
