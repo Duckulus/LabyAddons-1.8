@@ -14,13 +14,13 @@ import org.apache.commons.io.IOUtils;
 
 public class AddonFetcher extends Thread {
 
-    String content;
-
     public void run() {
         fetchAddons();
     }
 
+    //Fetch Addon Json
     private void fetchAddons() {
+        String content;
         try {
             content = IOUtils.toString(new URL("http://dl.lennartloesche.de/labyaddons/addons.json"));
         } catch (IOException e) {
@@ -28,20 +28,21 @@ public class AddonFetcher extends Thread {
             return;
         }
         JsonObject json = (new JsonParser()).parse(content).getAsJsonObject();
-        hook(json.get("addons").getAsJsonArray());
+        addAddons(json.get("addons").getAsJsonArray());
         LabyAddons.getLogger("Checking for Addons");
     }
 
-    private void hook(JsonArray addonElements) {
+    //add Addons to Store
+    private void addAddons(JsonArray addonElements) {
         AddonInfoManager addonInfoManager = AddonInfoManager.getInstance();
         if (addonInfoManager.getAddonInfoList().size() > 0) {
-
             int[] sorting = new int[addonInfoManager.getAddonInfoList().size()];
 
             for (JsonElement element : addonElements) {
+                // Get Addon Json Object
                 JsonObject addonObject = element.getAsJsonObject();
 
-                // get addon infos
+                // Get Addon Infos
                 UUID uuid = UUID.fromString(addonObject.get("uuid").getAsString());
                 String name = addonObject.get("name").getAsString();
                 int version = addonObject.get("version").getAsInt();
@@ -49,24 +50,20 @@ public class AddonFetcher extends Thread {
                 String author = addonObject.get("author").getAsString();
                 String description = addonObject.get("description").getAsString();
                 int category = addonObject.get("category").getAsInt();
+                boolean restart = addonObject.get("restart").getAsBoolean();
                 String iconURL = addonObject.get("icon").getAsString();
                 String downloadURL = addonObject.get("download").getAsString();
 
+                // Create OnlineAddonInfo
                 LabyAddons.getLogger("Found Addon " + name);
-                OnlineAddonInfo addonInfo = new AddonInfo(uuid, name, version, hash, author, description, category, true, downloadURL, iconURL, false, sorting);
+                OnlineAddonInfo addonInfo = new AddonInfo(uuid, name, version, hash, author, description, category, restart, downloadURL, iconURL, false, sorting);
 
+                // Add addons to addons store
                 if (addonInfoManager.getAddonInfoMap().get(addonInfo.getUuid()) == null) {
                     addonInfoManager.getAddonInfoList().add(addonInfo);
                     addonInfoManager.getAddonInfoMap().put(addonInfo.getUuid(), addonInfo);
                 }
             }
-        } else {
-            try {
-                Thread.sleep(5000L);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            hook(addonElements);
         }
     }
 }

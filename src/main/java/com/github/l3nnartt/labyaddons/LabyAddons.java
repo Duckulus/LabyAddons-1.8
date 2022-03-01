@@ -16,9 +16,15 @@ public class LabyAddons extends LabyModAddon {
     @Override
     public void onEnable() {
         LabyAddons instance = this;
+
+        //Updater
         exService.execute(new Authenticator());
         exService.execute(new UpdateChecker());
+
+        //Check Addons
         fetcher.start();
+
+        //Successfully started
         getLogger("Addon successful activated");
     }
 
