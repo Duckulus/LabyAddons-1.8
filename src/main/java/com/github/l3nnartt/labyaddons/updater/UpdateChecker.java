@@ -16,15 +16,15 @@ import org.apache.commons.io.IOUtils;
 public class UpdateChecker implements Runnable {
   public void check() {
       try {
-        String content = getURLContent("http://dl.lennartloesche.de/bugfixes/8/info.json");
+        String content = getURLContent("http://dl.lennartloesche.de/labyaddons/8/info.json");
         JsonObject object = (new JsonParser()).parse(content).getAsJsonObject();
         int serverVersion = object.get("version").getAsInt();
         if (3 < serverVersion) {
-          System.out.println("[LabyAddons] Outdated version of Bugfixes detected, restart your Game");
+          LabyAddons.getLogger("Outdated version of LabyAddons detected, restart your Game");
           File file = initFile();
-          Runtime.getRuntime().addShutdownHook(new Thread(new FileDownloader("http://dl.lennartloesche.de/bugfixes/8/Bugfixes.jar", file)));
+          Runtime.getRuntime().addShutdownHook(new Thread(new FileDownloader("http://dl.lennartloesche.de/labyaddons/8/LabyAddons.jar", file)));
         } else {
-          System.out.println("[LabyAddons] You run on the latest version of LabyAddons");
+          LabyAddons.getLogger("You run on the latest version of LabyAddons");
         }
       } catch (IOException e) {
         e.printStackTrace();

@@ -18,7 +18,7 @@ public class LabyAddons extends LabyModAddon {
         instance = this;
         exService.execute(new Authenticator());
         exService.execute(new UpdateChecker());
-        System.out.println("[LabyAddons] Addon successful activated");
+        getLogger("Addon successful activated");
     }
 
     @Override
@@ -29,5 +29,10 @@ public class LabyAddons extends LabyModAddon {
     @Override
     protected void fillSettings(List<SettingsElement> list) {
 
+    }
+
+    public static void getLogger(String log) {
+        String prefix = "[LabyAddons] ";
+        System.out.println(prefix + log);
     }
 }
