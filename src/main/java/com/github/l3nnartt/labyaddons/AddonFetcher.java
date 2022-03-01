@@ -55,7 +55,7 @@ public class AddonFetcher extends Thread {
                 String downloadURL = addonObject.get("download").getAsString();
 
                 // Create OnlineAddonInfo
-                LabyAddons.getLogger("Found Addon " + name);
+                LabyAddons.getLogger("Addon found " + name);
                 OnlineAddonInfo addonInfo = new AddonInfo(uuid, name, version, hash, author, description, category, restart, downloadURL, iconURL, false, sorting);
 
                 // Add addons to addons store
@@ -64,6 +64,13 @@ public class AddonFetcher extends Thread {
                     addonInfoManager.getAddonInfoMap().put(addonInfo.getUuid(), addonInfo);
                 }
             }
+        } else {
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            addAddons(addonElements);
         }
     }
 }
