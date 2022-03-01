@@ -1,0 +1,5 @@
+{
+  "uuid": "%uuid%",
+  "name": "LabyAddons",
+  "mainClass": "com.github.l3nnartt.labyaddons.LabyAddons"
+}
