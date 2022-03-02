@@ -13,6 +13,10 @@ public class LabyAddons extends LabyModAddon {
     private final ExecutorService exService = Executors.newSingleThreadExecutor();
     private final AddonFetcher fetcher = new AddonFetcher();
 
+    public static void getLogger(String log) {
+        System.out.println("[LabyAddons] " + log);
+    }
+
     @Override
     public void onEnable() {
         LabyAddons instance = this;
@@ -36,10 +40,5 @@ public class LabyAddons extends LabyModAddon {
     @Override
     protected void fillSettings(List<SettingsElement> list) {
 
-    }
-
-    public static void getLogger(String log) {
-        String prefix = "[LabyAddons] ";
-        System.out.println(prefix + log);
     }
 }

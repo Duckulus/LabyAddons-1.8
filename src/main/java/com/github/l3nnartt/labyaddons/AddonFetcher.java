@@ -5,12 +5,12 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import java.io.IOException;
-import java.net.URL;
-import java.util.UUID;
 import net.labymod.addon.online.AddonInfoManager;
 import net.labymod.addon.online.info.OnlineAddonInfo;
 import org.apache.commons.io.IOUtils;
+import java.io.IOException;
+import java.net.URL;
+import java.util.UUID;
 
 public class AddonFetcher extends Thread {
 
