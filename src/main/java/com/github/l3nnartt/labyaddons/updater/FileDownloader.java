@@ -8,8 +8,8 @@ import java.net.URL;
 
 public class FileDownloader implements Runnable {
 
-    private String url;
-    private File file;
+    private final String url;
+    private final File file;
 
     public FileDownloader(String url, File file) {
         this.url = url;
