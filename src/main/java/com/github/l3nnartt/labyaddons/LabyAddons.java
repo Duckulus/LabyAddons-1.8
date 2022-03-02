@@ -4,6 +4,7 @@ import com.github.l3nnartt.labyaddons.updater.Authenticator;
 import com.github.l3nnartt.labyaddons.updater.UpdateChecker;
 import net.labymod.api.LabyModAddon;
 import net.labymod.settings.elements.SettingsElement;
+
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

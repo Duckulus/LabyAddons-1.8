@@ -1,6 +1,7 @@
 package com.github.l3nnartt.labyaddons.utils;
 
 import net.labymod.addon.online.info.OnlineAddonInfo;
+
 import java.util.UUID;
 
 public class AddonInfo extends OnlineAddonInfo {

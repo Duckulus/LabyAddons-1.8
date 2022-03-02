@@ -6,6 +6,7 @@ import com.google.gson.JsonParser;
 import net.labymod.addon.AddonLoader;
 import net.minecraft.realms.RealmsSharedConstants;
 import org.apache.commons.io.IOUtils;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.HttpURLConnection;

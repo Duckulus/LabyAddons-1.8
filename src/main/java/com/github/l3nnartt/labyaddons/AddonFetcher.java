@@ -8,6 +8,7 @@ import com.google.gson.JsonParser;
 import net.labymod.addon.online.AddonInfoManager;
 import net.labymod.addon.online.info.OnlineAddonInfo;
 import org.apache.commons.io.IOUtils;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.UUID;
