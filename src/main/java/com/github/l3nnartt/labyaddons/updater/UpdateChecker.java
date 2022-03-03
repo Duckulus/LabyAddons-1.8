@@ -65,17 +65,19 @@ public class UpdateChecker implements Runnable {
         try {
             // Get server version
             String content = getURLContent("http://dl.lennartloesche.de/labyaddons/8/info.json");
-            JsonObject object = (new JsonParser()).parse(content).getAsJsonObject();
+            JsonObject object = new JsonParser().parse(content).getAsJsonObject();
             int serverVersion = object.get("version").getAsInt();
+
             // Get addon version
             URLConnection urlConnection = LabyAddons.class.getProtectionDomain().getCodeSource().getLocation().openConnection();
             File addonFile = new File(((JarURLConnection) urlConnection).getJarFileURL().getPath());
             JarFile jarFile = new JarFile(addonFile);
             JarEntry addonJsonFile = jarFile.getJarEntry("addon.json");
             String fileContent = ModUtils.getStringByInputStream(jarFile.getInputStream(addonJsonFile));
-            JsonObject jsonConfig = (new JsonParser()).parse(fileContent).getAsJsonObject();
+            JsonObject jsonConfig = new JsonParser().parse(fileContent).getAsJsonObject();
             int addonVersion = jsonConfig.get("version").getAsInt();
             jarFile.close();
+
             if (addonVersion < serverVersion) {
                 LabyAddons.getLogger("Outdated version of LabyAddons detected, restart your game.");
                 File file = initFile();
@@ -89,11 +91,10 @@ public class UpdateChecker implements Runnable {
     }
 
     public String getURLContent(String url) throws IOException {
-        HttpURLConnection con = (HttpURLConnection) (new URL(url)).openConnection();
+        HttpURLConnection con = (HttpURLConnection) new URL(url).openConnection();
         con.setConnectTimeout(5000);
         con.setRequestProperty("User-Agent", "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.4; en-US; rv:1.9.2.2) Gecko/20100316 Firefox/3.6.2");
         con.connect();
-
         return IOUtils.toString(con.getInputStream(), StandardCharsets.UTF_8);
     }
 }

@@ -70,7 +70,6 @@ public class AddonFetcher extends Thread {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
             addAddons(addonElements);
         }
     }
