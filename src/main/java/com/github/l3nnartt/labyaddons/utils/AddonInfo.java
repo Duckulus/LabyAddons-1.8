@@ -5,7 +5,6 @@ import net.labymod.addon.online.info.OnlineAddonInfo;
 import java.util.UUID;
 
 public class AddonInfo extends OnlineAddonInfo {
-
     private final String downloadURL;
     private final String iconURL;
 

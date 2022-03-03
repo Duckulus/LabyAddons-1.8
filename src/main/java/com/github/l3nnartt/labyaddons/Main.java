@@ -11,7 +11,6 @@ import java.util.HashMap;
 import java.util.Locale;
 
 public class Main {
-
     private static final HashMap<String, String> lang = new HashMap<>();
     private static Icon icon;
 
@@ -23,6 +22,7 @@ public class Main {
             if (!new File(dir).exists()) {
                 throw new IOException("No .minecraft/LabyMod directory found!");
             }
+
             if (showConfirmDialog(String.format(lang.get("installation"), "2.0"))) {
                 File run = new File(Main.class.getProtectionDomain().getCodeSource().getLocation().toURI());
                 if (run.exists() && run.isFile()) {
@@ -37,8 +37,10 @@ public class Main {
                                 }
                             }
                         }
+
                         Files.copy(run.toPath(), mod.toPath(), StandardCopyOption.REPLACE_EXISTING);
                     }
+
                     showMessageDialog(lang.get("success"), 1);
                 } else {
                     throw new IOException("Invalid path: " + run.getAbsolutePath());
@@ -72,9 +74,11 @@ public class Main {
         if (!new File(dir).exists()) {
             dir = System.getProperty("user.home") + "/Library/Application Support/minecraft/LabyMod/";
         }
+
         if (!new File(dir).exists()) {
             dir = System.getProperty("user.home") + "/.minecraft/LabyMod/";
         }
+
         return dir;
     }
 
@@ -85,14 +89,14 @@ public class Main {
             lang.put("success", "LabyAddons Installation abgeschlossen!");
             lang.put("closed", "Ist Minecraft geschlossen?");
             lang.put("error",
-                    "Installation fehlgeschlagen!\nKopiere die Mod in das Verzeichnis .minecraft/LabyMod/addons und starte Minecraft!");
+                    "Installation fehlgeschlagen!\nKopiere das Addon in das Verzeichnis .minecraft/LabyMod/addons und starte Minecraft!");
         } else if (Locale.getDefault().toString().toLowerCase().contains("es")) {
             lang.put("installation",
                     "¡Se puede instalar el LabyAddons v%s ahora!\n¡Minecraft tiene que estar cerrador para instalarlo!");
-            lang.put("success", "La instalación del LabyAddons a terminado");
+            lang.put("success", "n¡La instalación del LabyAddons a terminado!");
             lang.put("closed", "¿Minecraft está cerrado?");
             lang.put("error",
-                    "¡La instalación falló!\n¡Copiá la Mod en la carpeta .minecraft/LabyMod/addons y empezá a jugar!");
+                    "¡La instalación falló!\n¡Copiá el Addon en la carpeta .minecraft/LabyMod/addons y empezá a jugar!");
         } else if (Locale.getDefault().toString().toLowerCase().contains("pt")) {
             lang.put("installation",
                     "O LabyAddons v%s está pronto para instalação!\nFeche o Minecraft antes de continuar!");
@@ -104,9 +108,9 @@ public class Main {
             lang.put("installation",
                     "LabyAddons v%s is now ready for installation!\nClose Minecraft before continuing!");
             lang.put("success", "LabyAddons installation finished!");
-            lang.put("closed", "Minecraft closed?");
+            lang.put("closed", "Is Minecraft closed?");
             lang.put("error",
-                    "Installation failed!\nCopy the file into .minecraft/LabyMod/addons and start Minecraft!");
+                    "Installation failed!\nCopy the addon into .minecraft/LabyMod/addons and start Minecraft!");
         }
     }
 

@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.net.URL;
 
 public class FileDownloader implements Runnable {
-
     private final String url;
     private final File file;
 

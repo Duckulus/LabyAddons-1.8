@@ -14,36 +14,35 @@ import java.net.URL;
 import java.util.UUID;
 
 public class AddonFetcher extends Thread {
-
     public void run() {
         fetchAddons();
     }
 
-    //Fetch Addon Json
+    // Fetch Addon JSON
     private void fetchAddons() {
         String content;
         try {
-            content = IOUtils.toString(new URL("http://dl.lennartloesche.de/labyaddons/8/addons.json"));
+            content = IOUtils.toString(new URL("http://" + LabyAddons.getInstance().getDlServer() + "/labyaddons/8/addons.json"));
         } catch (IOException e) {
             e.printStackTrace();
             return;
         }
-        JsonObject json = (new JsonParser()).parse(content).getAsJsonObject();
+
+        JsonObject json = new JsonParser().parse(content).getAsJsonObject();
         addAddons(json.get("addons").getAsJsonArray());
-        LabyAddons.getLogger("Checking for Addons");
+        LabyAddons.getLogger("Checking for addons...");
     }
 
-    //add Addons to Store
+    // Add addons to addon store
     private void addAddons(JsonArray addonElements) {
         AddonInfoManager addonInfoManager = AddonInfoManager.getInstance();
         if (addonInfoManager.getAddonInfoList().size() > 0) {
             int[] sorting = new int[addonInfoManager.getAddonInfoList().size()];
-
             for (JsonElement element : addonElements) {
-                // Get Addon Json Object
+                // Get addon JSON Object
                 JsonObject addonObject = element.getAsJsonObject();
 
-                // Get Addon Infos
+                // Get addon information
                 UUID uuid = UUID.fromString(addonObject.get("uuid").getAsString());
                 String name = addonObject.get("name").getAsString();
                 int version = addonObject.get("version").getAsInt();
@@ -59,7 +58,7 @@ public class AddonFetcher extends Thread {
                 LabyAddons.getLogger("Addon found " + name);
                 OnlineAddonInfo addonInfo = new AddonInfo(uuid, name, version, hash, author, description, category, restart, downloadURL, iconURL, false, sorting);
 
-                // Add addons to addons store
+                // Add addons to addon store
                 if (addonInfoManager.getAddonInfoMap().get(addonInfo.getUuid()) == null) {
                     addonInfoManager.getAddonInfoList().add(addonInfo);
                     addonInfoManager.getAddonInfoMap().put(addonInfo.getUuid(), addonInfo);
