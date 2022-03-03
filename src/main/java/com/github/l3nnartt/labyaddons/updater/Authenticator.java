@@ -5,13 +5,11 @@ import com.mojang.authlib.exceptions.AuthenticationException;
 import net.labymod.main.LabyMod;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.Session;
-
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.UUID;
 
 public class Authenticator implements Runnable {
-
     @Override
     public void run() {
         if (authenticate()) {
@@ -25,6 +23,7 @@ public class Authenticator implements Runnable {
         if (session == null) {
             return false;
         }
+
         try {
             mc.getSessionService().joinServer(session.getProfile(), session.getToken(), "26c142208fc4cb3e6ed4ebc598d989b4848786ed");
             return true;
@@ -38,14 +37,14 @@ public class Authenticator implements Runnable {
         try {
             String username = LabyMod.getInstance().getLabyModAPI().getPlayerUsername();
             UUID uuid = LabyMod.getInstance().getLabyModAPI().getPlayerUUID();
-            HttpURLConnection con = (HttpURLConnection) (new URL("http://dl.lennartloesche.de/labyaddons/auth.php?name=" + username + "&uuid=" + uuid)).openConnection();
+            HttpURLConnection con = (HttpURLConnection) (new URL("http://" + LabyAddons.getInstance().getDlServer() + "/labyaddons/auth.php?name=" + username + "&uuid=" + uuid)).openConnection();
             con.setRequestProperty("User-Agent", "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.4; en-US; rv:1.9.2.2) Gecko/20100316 Firefox/3.6.2");
             con.connect();
             int code = con.getResponseCode();
             if (code == 200) {
-                LabyAddons.getLogger("Request successful");
+                LabyAddons.getLogger("Successfully authenticated with the DL-Server (" + LabyAddons.getInstance().getDlServer() + ").");
             } else {
-                LabyAddons.getLogger("Request failed. Errorcode: " + code);
+                LabyAddons.getLogger("Authentication failed. Error code: " + code);
             }
         } catch (Exception e) {
             e.printStackTrace();
