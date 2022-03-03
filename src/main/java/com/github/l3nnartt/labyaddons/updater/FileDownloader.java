@@ -6,8 +6,6 @@ import java.net.URL;
 import org.apache.commons.io.FileUtils;
 
 public class FileDownloader implements Runnable {
-  private String url;
-  private File file;
   private final String url;
   private final File file;
 
