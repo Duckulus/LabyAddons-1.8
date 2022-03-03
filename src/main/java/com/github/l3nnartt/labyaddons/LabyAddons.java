@@ -23,13 +23,19 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class LabyAddons extends LabyModAddon {
+    public static LabyAddons instance;
     private final ExecutorService exService = Executors.newSingleThreadExecutor();
     private final AddonFetcher fetcher = new AddonFetcher();
-
-    private String dlServer;
     ArrayList<String> availableServers = new ArrayList<>();
+    private String dlServer;
 
-    public static LabyAddons instance;
+    public static LabyAddons getInstance() {
+        return instance;
+    }
+
+    public static void getLogger(String log) {
+        System.out.println("[LabyAddons] " + log);
+    }
 
     @Override
     public void onEnable() {
@@ -84,13 +90,5 @@ public class LabyAddons extends LabyModAddon {
 
     public String getDlServer() {
         return dlServer;
-    }
-
-    public static LabyAddons getInstance() {
-        return instance;
-    }
-
-    public static void getLogger(String log) {
-        System.out.println("[LabyAddons] " + log);
     }
 }
