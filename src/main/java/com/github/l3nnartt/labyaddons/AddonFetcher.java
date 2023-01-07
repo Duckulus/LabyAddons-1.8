@@ -20,9 +20,12 @@ public class AddonFetcher extends Thread {
 
     // Fetch Addon JSON
     private void fetchAddons() {
+        System.out.println(LabyAddons.getInstance().getDlServer());
         String content;
         try {
-            content = IOUtils.toString(new URL("http://" + LabyAddons.getInstance().getDlServer() + "/labyaddons/8/addons.json"));
+
+            content = IOUtils.toString(new URL("https://dl.duckul.us/labyaddons/8/addons.json"));
+            System.out.println(content);
         } catch (IOException e) {
             e.printStackTrace();
             return;
@@ -53,6 +56,7 @@ public class AddonFetcher extends Thread {
                 boolean restart = addonObject.get("restart").getAsBoolean();
                 String iconURL = addonObject.get("icon").getAsString();
                 String downloadURL = addonObject.get("download").getAsString();
+                System.out.println(downloadURL);
 
                 // Create OnlineAddonInfo
                 LabyAddons.getLogger("Addon found " + name);

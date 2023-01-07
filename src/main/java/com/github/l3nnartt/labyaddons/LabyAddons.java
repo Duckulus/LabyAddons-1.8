@@ -1,7 +1,5 @@
 package com.github.l3nnartt.labyaddons;
 
-import com.github.l3nnartt.labyaddons.updater.Authenticator;
-import com.github.l3nnartt.labyaddons.updater.UpdateChecker;
 import net.labymod.api.LabyModAddon;
 import net.labymod.settings.elements.SettingsElement;
 
@@ -20,10 +18,9 @@ public class LabyAddons extends LabyModAddon {
 
     @Override
     public void onEnable() {
+        System.out.println("DUCKDUCK 2");
         instance = this;
         this.settings = new Settings(this);
-        exService.execute(new Authenticator());
-        exService.execute(new UpdateChecker());
         exService.execute(fetcher::start);
 
         getLogger("Addon successfully enabled.");
@@ -31,7 +28,8 @@ public class LabyAddons extends LabyModAddon {
 
     @Override
     public void loadConfig() {
-        this.dlServer = getConfig().has("dlServer") ? getConfig().get("dlServer").getAsString() : "dl.lennartloesche.de";
+        System.out.println("DUCKDUCK 1");
+        this.dlServer = getConfig().has("dlServer") ? getConfig().get("dlServer").getAsString() : "dl.duckul.us";
     }
 
     @Override

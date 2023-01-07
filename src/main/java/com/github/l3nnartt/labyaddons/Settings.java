@@ -27,7 +27,7 @@ public class Settings {
         list.add(new HeaderElement(ModColor.cl('c') + "Restart the game after changing the Download Server for it to apply."));
         String content;
         try {
-            content = IOUtils.toString(new URL("http://dl.lennartloesche.de/labyaddons/8/servers.json"));
+            content = IOUtils.toString(new URL("https://dl.duckul.us/labyaddons/8/servers.json"));
         } catch (IOException e) {
             e.printStackTrace();
             return;
